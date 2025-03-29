@@ -1,59 +1,24 @@
 import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
 import { ShoppingCart, Eye } from 'lucide-react';
-import 'react-toastify/dist/ReactToastify.css';
 import nikeLogo from '../assets/images/logo-nike.jpg';
 import productImage from '../assets/images/pair.jpg';
 
 export default function ProductShowcase() {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
-  // Notify on Size Selection
-  const handleSizeSelect = (size: string) => {
-    setSelectedSize(size);
-    toast.info(`👟 Size ${size} selected!`, {
-      position: "top-right",
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      theme: "dark",
-    });
-  };
-
   // Handle Add to Cart
   const handleAddToCart = () => {
     if (selectedSize) {
-      toast.success(`🛒 Size ${selectedSize} added to cart!`, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        theme: "dark",
-      });
+      console.log(`Size ${selectedSize} added to cart!`);
       setSelectedSize(null); // Reset selection
     } else {
-      toast.error("⚠️ Please select a size first!", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        theme: "dark",
-      });
+      console.log("Please select a size first!");
     }
   };
 
   return (
     <section className="bg-black text-white w-full h-screen flex justify-center items-center relative overflow-hidden px-4 sm:px-6">
-
-      {/* Toast Notifications */}
-      <ToastContainer />
-
+      
       {/* Background Nike Logo */}
       <img
         src={nikeLogo}
@@ -62,7 +27,7 @@ export default function ProductShowcase() {
       />
 
       <div className="w-full max-w-7xl flex flex-col lg:flex-row justify-between items-center px-6 md:px-16 lg:px-20 space-y-16 lg:space-y-0 relative text-center lg:text-left">
-
+        
         {/* Left Side Content - Title, Stars & Price */}
         <div className="w-full lg:w-1/3 space-y-4 z-10 lg:-ml-8">
           <div className="flex justify-center lg:justify-start space-x-1">
@@ -91,7 +56,7 @@ export default function ProductShowcase() {
               {["6.5", "7", "7.5", "8", "8.5", "9", "9.5", "10"].map((size) => (
                 <button
                   key={size}
-                  onClick={() => handleSizeSelect(size)}
+                  onClick={() => setSelectedSize(size)}
                   className={`border border-gray-600 px-3 py-2 rounded-md transition ${
                     selectedSize === size ? "bg-green-500 text-white" : "hover:bg-green-500 hover:text-white"
                   }`}
